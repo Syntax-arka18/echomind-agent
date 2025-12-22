@@ -1,6 +1,17 @@
-def build_prompt(history: str, emotion: str, strategy: str) -> str:
+from agent.persona import PERSONAS
+
+def build_prompt(history: str, emotion: str, strategy: str, persona: str) -> str:
+    persona_info = PERSONAS.get(persona, PERSONAS["thinker"])
+    rules = "\n".join(f"- {r}" for r in persona_info["rules"])
+
     return f"""
 You are EchoMind.
+
+Persona: {persona}
+Persona description: {persona_info['description']}
+
+Persona rules:
+{rules}
 
 You are a thoughtful conversational partner.
 You think aloud.
@@ -20,5 +31,5 @@ Rules:
 - If strategy is "deepen", gently challenge assumptions.
 - If strategy is "explore", ask an open-ended question.
 
-Respond naturally, like a human thinking aloud.
+Respond naturally, consistent with your persona.
 """

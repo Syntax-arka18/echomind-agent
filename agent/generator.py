@@ -7,5 +7,4 @@ model = GenerativeModel(GEMINI_MODEL)
 
 def generate_reply(prompt: str) -> str:
     response = model.generate_content(prompt)
-    text = response.text.strip()
-    return text.replace("...", "…").replace("\n", " ")
+    return response.text.strip()
