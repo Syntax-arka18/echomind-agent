@@ -1,0 +1,746 @@
+:root {
+  --bg: #0b0f14;
+  --glass: rgba(255,255,255,0.08);
+  --text-primary: #e5e7eb;
+  --text-secondary: rgba(229,231,235,0.65);
+  --accent: #22d3ee;
+  --wave-user: rgba(167,139,250,0.35);
+  --wave-bot: rgba(250,204,21,0.35);
+}
+
+body[data-theme="light"] {
+  --bg: #f9fafb;
+  --glass: rgba(0,0,0,0.06);
+  --text-primary: #020617;
+  --text-secondary: rgba(2,6,23,0.6);
+  --accent: #3b82f6;
+  --wave-user: rgba(99,102,241,0.35);
+  --wave-bot: rgba(245,158,11,0.35);
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+/* CANVAS */
+canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+/* LANDING */
+.landing {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  align-items: center;
+  padding: 0 8%;
+  position: relative;
+  z-index: 2;
+}
+
+/* COPY */
+.copy h1 {
+  font-size: 48px;
+  font-weight: 600;
+}
+
+.tagline {
+  font-size: 20px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.subtag {
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+button {
+  margin-top: 28px;
+  height: 48px;
+  padding: 0 36px;
+  border-radius: 999px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* ORB */
+.orb-shell {
+  width: 300px;       /* bigger */
+  height: 300px;
+  position: relative;
+  margin-left: 80px;  /* subtle move to the right */
+}
+/* ORB- DARK THEME */
+.orb {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+
+  /* Pro gradient matching waves */
+  background: radial-gradient(
+    circle at 30% 30%,
+    #e0f2fe 0%,
+    #8b5cf6 38%,
+    #22d3ee 62%,
+    rgba(34,211,238,0.15) 72%,
+    transparent 78%
+  );
+
+  /* Premium glow */
+  box-shadow:
+    0 0 60px rgba(139,92,246,0.55),
+    0 0 120px rgba(34,211,238,0.35),
+    inset 0 0 40px rgba(255,255,255,0.35);
+
+  animation: breathe 7s infinite ease-in-out;
+}
+/* =========================
+   ORB — DARK THEME 3D TUNING
+========================= */
+body[data-theme="dark"] .orb::before {
+  border: 1px solid rgba(139,92,246,0.35);
+  box-shadow:
+    inset 0 0 14px rgba(0,0,0,0.35),
+    0 0 14px rgba(139,92,246,0.4);
+}
+
+body[data-theme="dark"] .orb::after {
+  background: radial-gradient(
+    circle at 28% 26%,
+    rgba(255,255,255,0.35),
+    rgba(139,92,246,0.22) 34%,
+    rgba(0,0,0,0.35) 62%,
+    rgba(0,0,0,0.55) 80%
+  );
+}
+/* =========================
+   ORB — DARK THEME INNER DEPTH
+========================= */
+body[data-theme="dark"] .orb span {
+  box-shadow:
+    inset 0 0 22px rgba(0,0,0,0.45),
+    0 0 16px rgba(139,92,246,0.35);
+
+  opacity: 0.45;
+}
+
+
+/* =========================
+   ORB NEON RING
+========================= */
+.orb-ring {
+  position: absolute;
+  inset: -24px;              /* spacing from orb */
+  border-radius: 50%;
+
+  /* Thin neon ring */
+  border: 1.5px solid rgba(139,92,246,0.6);
+
+  /* Soft glow */
+  box-shadow:
+    0 0 14px rgba(139,92,246,0.6),
+    0 0 32px rgba(34,211,238,0.35);
+
+  pointer-events: none;
+
+  /* Subtle breathing sync */
+  animation: ring-breathe 7s ease-in-out infinite;
+}
+
+
+/* =========================
+/* =========================
+   ELITE GLASS TILE — COLOR GRADE
+========================= */
+.footer-glass {
+  position: relative;
+
+  margin: 80px auto 60px;
+  padding: 32px 40px;
+  max-width: 900px;
+
+  border-radius: 18px;
+
+  /* Cooler, premium glass tone */
+  background:
+    linear-gradient(
+      180deg,
+      rgba(224,242,254,0.18),   /* cool top sheen */
+      rgba(224,242,254,0.06)
+    ),
+    rgba(255,255,255,0.07);
+
+  backdrop-filter: blur(18px) saturate(135%);
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+
+  border: 1px solid rgba(255,255,255,0.18);
+
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.32);
+
+  transform-style: preserve-3d;
+  transition:
+    transform 0.45s cubic-bezier(.22,.61,.36,1),
+    box-shadow 0.45s cubic-bezier(.22,.61,.36,1);
+}
+
+/* BRAND ROW */
+.brand-row {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:64px; /* increased gap */
+  font-size:22px;
+  margin-bottom:40px;
+  opacity:0.9;
+}
+
+.google-font {
+  font-family: "Google Sans", sans-serif;
+}
+
+.eleven-font {
+  font-family: "Manrope", sans-serif;
+}
+
+.divider {
+  opacity: 0.4;
+}
+
+/* EMAIL GRID */
+.creator-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  text-align: center;
+}
+
+.creator-grid strong {
+  font-size: 16px;
+}
+
+.email {
+  display: block;
+  margin-top: 6px;
+  font-size: 15px;
+  opacity: 0.75;
+}
+
+/* SCROLL GAP */
+.scroll-gap {
+  height: 140px;
+}
+
+.theme-toggle {
+  position:fixed;
+  bottom:24px;
+  right:24px;
+  font-size:20px;
+  cursor:pointer;
+  opacity:0.6;
+  z-index:10;
+  transition:opacity .2s;
+}
+.theme-toggle:hover { opacity:1; }
+/* Highlight correct icon */
+body[data-theme="dark"] .theme-icon.sun {
+  opacity: 1;
+}
+
+body[data-theme="light"] .theme-icon.moon {
+  opacity: 1;
+}
+
+body[data-theme="light"] {
+  background: #F9FAFB;
+  color: #0b0f14;
+}
+body[data-theme="light"] .orb-ring {
+  border: 1.5px solid rgba(59,130,246,0.55);
+  box-shadow:
+    0 0 12px rgba(59,130,246,0.45),
+    0 0 26px rgba(34,211,238,0.3);
+}
+
+/* =========================
+   ORB — LIGHT THEME (DEEPER / SUBTLE)
+========================= */
+body[data-theme="light"] .orb {
+  background: radial-gradient(
+    circle at 30% 28%,
+    rgba(255,255,255,0.72) 0%,     /* reduced highlight */
+    #d1d5ff 20%,                   /* deeper lavender */
+    #bfc7f3 38%,                   /* muted periwinkle */
+    #9aa6e8 52%,                   /* deeper core */
+    #8ab4d8 62%,                   /* subdued blue layer */
+    rgba(154,166,232,0.26) 72%,
+    transparent 80%
+  );
+
+  /* Deeper, calmer shading */
+  box-shadow:
+    inset 0 0 0 1px rgba(99,102,241,0.28),   /* clearer edge */
+    inset 0 0 18px rgba(255,255,255,0.42),  /* softer inner light */
+    0 0 20px rgba(154,166,232,0.28),         /* reduced outer glow */
+    0 0 58px rgba(191,199,243,0.24);         /* depth halo */
+}
+
+/* =========================
+   ORB — 3D STRUCTURE LAYERS
+========================= */
+.orb {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Inner concentric ring */
+.orb::before {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+
+  border: 1px solid rgba(255,255,255,0.25);
+
+  /* Depth illusion */
+  box-shadow:
+    inset 0 0 12px rgba(0,0,0,0.15),
+    0 0 10px rgba(255,255,255,0.25);
+
+  opacity: 0.55;
+}
+/* =========================
+   ORB — INNER DEPTH RING
+========================= */
+.orb span {
+  position: absolute;
+  inset: 32%;
+  border-radius: 50%;
+  pointer-events: none;
+
+  /* Glass depth illusion */
+  box-shadow:
+    inset 0 0 18px rgba(0,0,0,0.25),
+    0 0 12px rgba(255,255,255,0.2);
+
+  opacity: 0.35;
+}
+/* =========================
+   ORB — LIGHT THEME INNER DEPTH
+========================= */
+body[data-theme="light"] .orb span {
+  box-shadow:
+    inset 0 0 18px rgba(0,0,0,0.18),
+    0 0 14px rgba(147,197,253,0.3);
+
+  opacity: 0.32;
+}
+
+/* Light falloff + 3D shading */
+.orb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle at 30% 28%,
+    rgba(255,255,255,0.45),
+    rgba(255,255,255,0.15) 38%,
+    rgba(0,0,0,0.18) 62%,
+    rgba(0,0,0,0.35) 78%
+  );
+
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* =========================
+   ORB — LIGHT THEME 3D TUNING
+========================= */
+body[data-theme="light"] .orb::before {
+  border: 1px solid rgba(99,102,241,0.35);
+  box-shadow:
+    inset 0 0 14px rgba(0,0,0,0.12),
+    0 0 12px rgba(147,197,253,0.35);
+}
+
+body[data-theme="light"] .orb::after {
+  background: radial-gradient(
+    circle at 28% 26%,
+    rgba(255,255,255,0.55),
+    rgba(224,231,255,0.45) 36%,
+    rgba(0,0,0,0.18) 60%,
+    rgba(0,0,0,0.32) 78%
+  );
+}
+
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.065);
+  }
+}
+@keyframes ring-breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.035);
+    opacity: 1;
+  }
+}
+
+
+
+#holdSpeakBtn {
+  height: 56px;
+  padding: 0 22px 0 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+
+  /* Elite gradient */
+  background: linear-gradient(
+    135deg,
+    rgba(34,211,238,0.95),
+    rgba(139,92,246,0.95)
+  );
+
+  color: white;
+  font-size: 15.5px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+
+  cursor: pointer;
+
+  /* Pro glow */
+  box-shadow:
+    0 8px 28px rgba(139,92,246,0.35),
+    inset 0 0 0 1px rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(6px);
+  transition:
+    transform .15s ease,
+    box-shadow .15s ease,
+    opacity .15s ease;
+}
+
+#holdSpeakBtn:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 10px 36px rgba(139,92,246,0.45),
+    inset 0 0 0 1px rgba(255,255,255,0.12);
+}
+
+#holdSpeakBtn:active {
+  transform: scale(0.985);
+  opacity: 0.95;
+}
+
+/* When button docks under orb */
+#holdSpeakWrap {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-42%);
+  bottom: 44px;
+  z-index: 12;
+
+  transition:
+    top 0.55s cubic-bezier(.22,.61,.36,1),
+    bottom 0.55s cubic-bezier(.22,.61,.36,1);
+}
+
+/* Docked under orb */
+#holdSpeakWrap.docked {
+  bottom: auto;
+}
+
+
+/* Mobile safety */
+@media (max-width: 768px) {
+  #holdSpeakWrap {
+    transform: translateX(-50%);
+  }
+}
+
+/* MIC ICON INSIDE BUTTON */
+.mic-icon {
+  font-size: 18px;
+  line-height: 1;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 6px rgba(0,0,0,0.25));
+}
+body[data-theme="light"] #holdSpeakBtn {
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow:
+    0 8px 24px rgba(59,130,246,0.25),
+    inset 0 0 0 1px rgba(255,255,255,0.4);
+}
+/* =========================
+   PRO THEME SWITCH
+========================= */
+.theme-switch {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 15;
+
+  height: 44px;
+  padding: 0 10px 0 14px;
+  border-radius: 999px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+
+  cursor: pointer;
+  user-select: none;
+
+  /* Mini Hold-to-Speak styling */
+  background: linear-gradient(
+    135deg,
+    rgba(139,92,246,0.95),
+    rgba(34,211,238,0.95)
+  );
+
+  color: white;
+
+  box-shadow:
+    0 6px 22px rgba(139,92,246,0.35),
+    inset 0 0 0 1px rgba(255,255,255,0.1);
+
+  backdrop-filter: blur(8px);
+  transition: box-shadow .2s ease;
+}
+
+.theme-switch:hover {
+  box-shadow:
+    0 8px 30px rgba(139,92,246,0.45),
+    inset 0 0 0 1px rgba(255,255,255,0.15);
+}
+
+/* TEXT */
+.theme-label {
+  min-width: 38px;
+  text-align: right;
+  opacity: 0.95;
+}
+
+/* SLIDER */
+.theme-slider {
+  width: 34px;
+  height: 18px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.25);
+  position: relative;
+}
+
+/* KNOB */
+.theme-knob {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: white;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform .25s cubic-bezier(.22,.61,.36,1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+/* DARK MODE POSITION (moon on left) */
+body[data-theme="dark"] .theme-knob {
+  transform: translateX(0px);
+}
+
+/* LIGHT MODE POSITION (sun on right) */
+body[data-theme="light"] .theme-knob {
+  transform: translateX(18px);
+}
+
+
+/* LIGHT MODE COLORS */
+body[data-theme="light"] .theme-switch {
+  background: linear-gradient(
+    135deg,
+    rgba(59,130,246,0.95),
+    rgba(34,211,238,0.95)
+  );
+}
+
+/* =========================
+   GOOGLE CLOUD BRANDING
+========================= */
+.google-font {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+}
+
+.google-logo {
+  font-size: 22px;
+  letter-spacing: 0.1px;
+}
+
+.google-logo .g1 { color: #4285F4; } /* Blue */
+.google-logo .g2 { color: #EA4335; } /* Red */
+.google-logo .g3 { color: #FBBC05; } /* Yellow */
+.google-logo .g4 { color: #4285F4; } /* Blue */
+
+.google-logo .cloud {
+  color: #5f6368; /* Official Google Cloud gray */
+  font-weight: 500;
+}
+/* =========================
+   ELEVENLABS BRANDING
+========================= */
+.eleven-logo {
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: #000;
+}
+
+body[data-theme="dark"] .eleven-logo {
+  color: #ffffff;
+}
+
+/* =========================
+   TOP LEFT APP ICON
+========================= */
+.app-icon {
+  position: fixed;
+  top: 22px;
+  left: 22px;
+  z-index: 25;
+
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-icon img {
+  width: 100%;
+  height: auto;
+
+  /* Subtle premium glow */
+  filter:
+    drop-shadow(0 0 6px rgba(139,92,246,0.45))
+    drop-shadow(0 0 14px rgba(34,211,238,0.35));
+
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+/* Optional hover polish */
+.app-icon:hover img {
+  transform: scale(1.05);
+  filter:
+    drop-shadow(0 0 10px rgba(139,92,246,0.6))
+    drop-shadow(0 0 20px rgba(34,211,238,0.45));
+}
+/* Glossy highlight */
+.footer-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.35),
+    rgba(255,255,255,0.08) 40%,
+    transparent 60%
+  );
+
+  opacity: 0.55;
+  pointer-events: none;
+}
+/* 3D hover lift */
+.footer-glass:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow:
+    0 40px 90px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.45);
+}
+body[data-theme="light"] .footer-glass {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.55),
+      rgba(255,255,255,0.25)
+    ),
+    rgba(255,255,255,0.35);
+
+  border: 1px solid rgba(0,0,0,0.06);
+
+  box-shadow:
+    0 24px 60px rgba(0,0,0,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.65);
+}
+/* =========================
+   CYAN HYPERLINKS (SHADED)
+========================= */
+.email {
+  color: rgba(34,211,238,0.85); /* shady cyan */
+  text-decoration: none;
+  font-weight: 500;
+
+  transition:
+    color 0.2s ease,
+    text-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.email:hover {
+  color: rgba(34,211,238,1);
+  text-shadow: 0 0 10px rgba(34,211,238,0.35);
+  opacity: 1;
+}
+body[data-theme="light"] .email {
+  color: rgba(14,165,233,0.85); /* deeper cyan for light bg */
+}
+
+body[data-theme="light"] .email:hover {
+  color: rgba(14,165,233,1);
+  text-shadow: 0 0 8px rgba(14,165,233,0.25);
+}
+/* =========================
+   GLASS TILE — LIGHT MODE BORDER + SHADOW
+========================= */
+body[data-theme="light"] .footer-glass {
+  border: 1px solid rgba(0, 0, 0, 0.08);   /* subtle defined edge */
+
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.15),       /* grounding shadow */
+    0 6px 14px rgba(0, 0, 0, 0.08),        /* near-depth */
+    inset 0 1px 0 rgba(255, 255, 255, 0.65); /* glass highlight */
+}
